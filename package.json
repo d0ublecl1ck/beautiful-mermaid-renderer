@@ -1,0 +1,11 @@
+{
+  "name": "beautiful-mermaid-renderer-skill",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test"
+  },
+  "dependencies": {
+    "beautiful-mermaid": "^0.1.3"
+  }
+}
