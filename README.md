@@ -1,72 +1,85 @@
-# beautiful-mermaid-renderer (Codex Skill)
+# beautiful-mermaid-renderer
 
-用 `beautiful-mermaid` 将 Mermaid 源码渲染为：
+将 Mermaid 源码渲染为以下格式：
 
-- **Unicode/ASCII** 盒线图（适合终端 / 聊天里直接给用户看）
-- **SVG**（适合文档 / 网页 / 富 UI）
+- Unicode 盒线图（终端/聊天展示优先）
+- ASCII 盒线图（兼容性优先）
+- SVG（文档、网页和富 UI）
 
-## 依赖
+## 环境要求
 
 - Bun
 
-安装依赖（首次/升级后执行一次）：
+## 安装
 
 ```sh
 cd ~/.codex/skills/beautiful-mermaid-renderer
 bun install
 ```
 
-## 快速使用
+## 快速开始
 
-### 1) 输出 Unicode（默认，最好看）
+1. 通过 stdin 输入 Mermaid（Unicode）：
 
 ```sh
 cat diagram.mmd | ./scripts/render.sh --format unicode
 ```
 
-### 2) 输出 ASCII（兼容性更强）
+2. 通过 stdin 输入 Mermaid（ASCII）：
 
 ```sh
 cat diagram.mmd | ./scripts/render.sh --format ascii
 ```
 
-### 3) 输出 SVG
+3. 输出 SVG 到文件：
 
 ```sh
 cat diagram.mmd | ./scripts/render.sh --format svg --out diagram.svg
 ```
 
-## 常用参数
+4. 直接读取文件输入：
 
-- `--in <file>`：从文件读取（不传则从 stdin）
-- `--out <file>`：写到文件（不传则输出到 stdout）
-- `--list-themes`：列出 SVG 内置主题
-- `--theme <name>`：SVG 使用内置主题
-- `--bg <color>` / `--fg <color>`：SVG 自定义背景/前景色（覆盖主题）
-- `--transparent`：SVG 透明背景
-- `--paddingX <n>` / `--paddingY <n>` / `--boxBorderPadding <n>`：文本渲染间距参数
+```sh
+./scripts/render.sh --in diagram.mmd --format unicode
+```
 
-示例：列主题
+## CLI 参数
+
+- `--format <unicode|ascii|svg>` 输出格式，默认 `unicode`
+- `--in <file>` 从文件读取 Mermaid 源码；不传时从 stdin 读取
+- `--out <file>` 输出到文件；不传时输出到 stdout
+- `--list-themes` 列出 SVG 内置主题名
+- `--theme <name>` SVG 使用内置主题
+- `--bg <color>` SVG 背景色（覆盖主题）
+- `--fg <color>` SVG 前景色（覆盖主题）
+- `--transparent` SVG 透明背景
+- `--paddingX <n>` 文本渲染水平间距
+- `--paddingY <n>` 文本渲染垂直间距
+- `--boxBorderPadding <n>` 文本节点框内边距
+- `--help` 显示帮助
+
+## 常见用法
+
+列出全部主题：
 
 ```sh
 ./scripts/render.sh --list-themes
 ```
 
-示例：指定主题 + 输出 SVG
+使用主题渲染 SVG：
 
 ```sh
 cat diagram.mmd | ./scripts/render.sh --format svg --theme tokyo-night --out diagram.svg
 ```
 
-## 备注
+## 行为说明
 
-- 支持 Mermaid 常见单行写法（会自动规范化），例如：`graph LR; A-->B`
-- `scripts/` 目录仅提供 `.sh` 入口脚本；实际渲染逻辑在 `src/`（Bun 运行）
+- 支持 Mermaid 常见单行写法，例：`graph LR; A-->B`（内部会自动规范化）
+- `scripts/render.sh` 是入口；核心逻辑在 `src/render.ts`
+- 未提供 `--in` 且没有 stdin 输入时会报错提示输入来源
 
 ## 测试
 
 ```sh
-cd ~/.codex/skills/beautiful-mermaid-renderer
 bun test
 ```
-
