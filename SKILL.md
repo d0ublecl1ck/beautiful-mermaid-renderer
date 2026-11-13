@@ -13,7 +13,7 @@ Render Mermaid source into Unicode/ASCII box-drawing diagrams for terminal/chat 
 
 1) Install dependencies (one-time per machine):
 
-`cd ~/.codex/skills/beautiful-mermaid-renderer && bun install`
+`cd ~/.agents/skills/beautiful-mermaid-renderer && bun install`
 
 2) Render Unicode (default) to stdout:
 

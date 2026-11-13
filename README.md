@@ -13,7 +13,7 @@
 ## 安装
 
 ```sh
-cd ~/.codex/skills/beautiful-mermaid-renderer
+cd ~/.agents/skills/beautiful-mermaid-renderer
 bun install
 ```
 
